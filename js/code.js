@@ -17,7 +17,7 @@ function Addrow() {
             '</tr>'
   $('tbody').append(tr);
 }
-//remove btn that remove the row which is in it
+//remove btn that remove the row which  is in it
 function remove() {
   $(this).parent().parent().remove();
 }
