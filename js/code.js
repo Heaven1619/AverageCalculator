@@ -3,7 +3,7 @@ $(document).ready(function(){
   $('tbody').on('click','.remove',remove);
   $('#removeAll').on('click',removeAll);
   $('body').on('change keyup','.score,.forgiveness',Calc);
-  $('.forgiveness').val(0).on('focus',function(){$(this).val('');});
+  $('body').on('focus','.forgiveness',function(){$(this).val('');});
 });
 //add btn that appends new rows to tbody
 function Addrow() {
@@ -12,7 +12,7 @@ function Addrow() {
               '<td>'+number+'</td>'+
               '<td><input type="text" placeholder="Student Name" class="form-control name"></td>'+
               '<td><input type="number" placeholder="Score" class="form-control score"></td>'+
-              '<td><input type="number" placeholder="Forgiveness" class="form-control forgiveness"></td>'+
+              '<td><input type="number" placeholder="Forgiveness" class="form-control forgiveness" value="0"></td>'+
               '<td class="final"></td>'+
               '<td class="status alert"></td>'+
               '<td><input type="button" class="btn btn-primary btn-sm remove" value="Remove"></td>'+
