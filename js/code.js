@@ -6,6 +6,7 @@ $(document).ready(function(){
   $('body').on('focus','.forgiveness',function(){$(this).val('');});
   $('#results').on('click',results);
   $('.popup_background,#exit').on('click',function(){$('.popup_background,.popup_box').fadeOut(500);});
+  $('#min,#max').on('change keyup',function(){$('.score').change();});
 });
 //add btn that appends new rows to tbody
 function Addrow() {
@@ -66,19 +67,21 @@ function total_average() {
 
 function status() {
   var status = this_row.parent().parent().find('.status');
-  if(final<=20)
+  var max = $('#max').val();
+  var min = $('#min').val();
+  if(final<=max)
   {
     switch(true)
     {
 
-      case (final>=10) : status.html('passed').removeClass('undefine').addClass('alert-success'); break;
-      case (final<10) : status.html('failed').removeClass('undefine').addClass('alert-danger'); break;
+      case (final>=min) : status.html('passed').removeClass('undefine').addClass('alert-success'); break;
+      case (final<min) : status.html('failed').removeClass('undefine').addClass('alert-danger'); break;
     }
   }
 
-  if(final>20)
+  if(final>max)
   {
-    this_row.parent().parent().find('.final').html('more than 20 ?').addClass('alert alert-danger');
+    this_row.parent().parent().find('.final').html('more than '+ max +' ?').addClass('alert alert-danger');
   }
 }
 

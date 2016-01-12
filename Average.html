@@ -9,6 +9,13 @@
   </head>
   <body>
     <div class="container">
+      <div class="setting">
+        <label for="max">Max score value : </label>
+        <input type="number" id="max" placeholder="Max" class="form-control" value="20" style="margin-bottom:15px;width:10%;display:inline-block;">
+        <label for="min">Min required score</label>
+        <input type="number" id="min" placeholder="Min" class="form-control" value="10" style="margin-bottom:15px;width:10%;display:inline-block;">
+      </div>
+      <div class="main">
       <table class="table table-bordered table-hover">
         <thead>
           <th>Number</th>
@@ -76,6 +83,7 @@
         </tfoot>
         </tbody>
       </table>
+      </div>
     </div>
 
     <div class="popup_background" style="display:none;"></div>
