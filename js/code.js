@@ -3,6 +3,7 @@ $(document).ready(function(){
   $('tbody').on('click','.remove',remove);
   $('#removeAll').on('click',removeAll);
   $('body').on('change keyup','.score,.forgiveness',Calc);
+  $('.forgiveness').val(0).on('focus',function(){$(this).val('');});
 });
 //add btn that appends new rows to tbody
 function Addrow() {
@@ -12,8 +13,8 @@ function Addrow() {
               '<td><input type="text" placeholder="Student Name" class="form-control name"></td>'+
               '<td><input type="number" placeholder="Score" class="form-control score"></td>'+
               '<td><input type="number" placeholder="Forgiveness" class="form-control forgiveness"></td>'+
-              '<td class="final">0</td>'+
-              '<td class="status"></td>'+
+              '<td class="final"></td>'+
+              '<td class="status alert"></td>'+
               '<td><input type="button" class="btn btn-primary btn-sm remove" value="Remove"></td>'+
             '</tr>'
   $('tbody').append(tr);
@@ -35,24 +36,7 @@ function Calc()
   refresh(); //this func will clear the status to their default state for new value change...
   var score = parseInt(this_row.parent().parent().find('.score').val(),10),
       forgiveness = parseInt(this_row.parent().parent().find('.forgiveness').val(),10);
-  if(score && !forgiveness)
-  {
-    final = score;
-  }
-  if(!score && forgiveness)
-  {
-    final = 'Enter Score too!';
-    this_row.parent().parent().find('.final').addClass('alert alert-danger');
-  }
-  if(score && forgiveness)
-  {
-    final = score + forgiveness;
-  }
-  if(!score && !forgiveness)
-  {
-    final = 0;
-  }
-
+  final = score + forgiveness;
   this_row.parent().parent().find('.final').html(final);
 
   status();
@@ -68,11 +52,11 @@ function total() {
 //  });
   for(i=0;i<scoreAll.length;i++)
   {
-    var num = parseInt($(scoreAll[i]).html(),10);
+    var num = parseInt($(scoreAll[i]).text(),10);
     total += num;
-    $('.total').html('Total : ' + total);
+    var total_state = $('.total').html();
   }
-
+  if(!isNaN(total) && total != '') $('.total').html('Total : ' + total );
 }
 
 function status() {
@@ -90,12 +74,13 @@ function status() {
 
   if(final>20)
   {
-    alert('more than 20');
+    this_row.parent().parent().find('.final').html('more than 20 ?').addClass('alert alert-danger');
   }
 }
 
 function refresh () {
   var status = this_row.parent().parent().find('.status');
-  status.removeClass('alert-success').removeClass('alert-danger');
+  status.removeClass('alert-success').removeClass('alert-danger').html('');
   this_row.parent().parent().find('.final').removeClass('alert alert-danger');
+  $('.total').html('Total : ' + '');
 }
