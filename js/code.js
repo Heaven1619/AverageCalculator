@@ -5,6 +5,7 @@ $(document).ready(function(){
   $('body').on('change keyup','.score,.forgiveness',Calc);
   $('body').on('focus','.forgiveness',function(){$(this).val('');});
   $('#results').on('click',results);
+  $('.popup_background,#exit').on('click',function(){$('.popup_background,.popup_box').fadeOut(500);});
 });
 //add btn that appends new rows to tbody
 function Addrow() {
@@ -89,6 +90,7 @@ function refresh () {
 }
 
 function results() {
+  $('#result_screen').removeClass('alert-danger');//refresh for new value!!
   results ='';
   var all_rows = $('tbody tr').length;
   var passed = $('tbody .alert-success').length;
@@ -100,12 +102,17 @@ function results() {
     switch(true)
     {
       case (passed==0) : results = 'Average of these ' + all_rows +' scores is ' + average+ ' and All ' + failed +' students unfortunately have failed.'; break;
-      case (failed==0) : results = 'Average of these ' + all_rows +' scores is ' + average+ ' and All ' + passed + ' student have passed the exem. hooooora'; break;
+      case (failed==0) : results = 'Average of these ' + all_rows +' scores is ' + average+ ' and All ' + passed + ' student have passed the exem. hooooora';  break;
       case (passed!=0 && failed!=0) : results = 'Average of these ' + all_rows +' scores is ' + average + ' and ' + passed + ' students have passed and ' + failed + ' students unfortunately have failed.';break;
     }
   }
-  if(undefine !=0) results = 'please enter remaining '+ undefine + ' students info or remove them. thanks!';
-  alert(results);
+  if(undefine !=0)
+  {
+    results = 'Please enter remaining '+ undefine + ' students info or remove them. thanks!';
+    $('#result_screen').removeClass('alert-success').addClass('alert-danger');
+  }
+  $('.popup_background,.popup_box').fadeIn(500);
+  $('#result_screen').html(results);
 
 }
 
