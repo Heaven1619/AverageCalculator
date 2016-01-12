@@ -54,3 +54,8 @@ border-radius: 50px;
 padding:5px;
 color:orange;
 }
+.describtion {
+  text-align: center;
+  margin-top:-45px;
+  margin-bottom: 8px;
+}
