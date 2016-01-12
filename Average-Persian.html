@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>برنامه وب محاسبه میانگین</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main-Persian.css">
+  </head>
+  <body style="direction:rtl;">
+    <div class="container">
+      <div class="describtion">
+        <span style="font-size:200%;font-weight:bold;"> سیستم محاسبه میانگین نمرات</span><br>
+        <span style="font-size:120%;">نوشته شده  با jQuery و Bootstrap توسط من</span>
+      </div>
+      <div class="setting">
+        <label for="max">نمره کامل : </label>
+        <input type="number" id="max" placeholder="Max" class="form-control" value="20" style="margin-bottom:10px;width:5%;display:inline-block;">
+        <label for="min"> نمره قبولی : </label>
+        <input type="number" id="min" placeholder="Min" class="form-control" value="10" style="margin-bottom:10px;width:5%;display:inline-block;">
+      </div>
+      <div class="main">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <th>ردیف</th>
+          <th>نام دانش آموز</th>
+          <th>نمره</th>
+          <th>ارفاق</th>
+          <th>نمره نهایی</th>
+          <th>وضعیت</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr>
+            <td class='num'>1</td>
+            <td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>
+            <td><input type="number" placeholder="نمره" class="form-control score"></td>
+            <td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value='0'></td>
+            <td class="final"></td>
+            <td class="status alert undefine"></td>
+            <td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>
+          </tr>
+          <tr>
+            <td class='num'>2</td>
+            <td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>
+            <td><input type="number" placeholder="نمره" class="form-control score"></td>
+            <td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value='0'></td>
+            <td class="final"></td>
+            <td class="status alert undefine"></td>
+            <td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>
+          </tr>
+          <tr>
+            <td class='num'>3</td>
+            <td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>
+            <td><input type="number" placeholder="نمره" class="form-control score"></td>
+            <td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value='0'></td>
+            <td class="final"></td>
+            <td class="status alert undefine"></td>
+            <td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>
+          </tr>
+          <tr>
+            <td class='num'>4</td>
+            <td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>
+            <td><input type="number" placeholder="نمره" class="form-control score"></td>
+            <td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value='0'></td>
+            <td class="final"></td>
+            <td class="status alert undefine"></td>
+            <td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>
+          </tr>
+          <tr>
+            <td class='num'>5</td>
+            <td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>
+            <td><input type="number" placeholder="نمره" class="form-control score"></td>
+            <td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value='0'></td>
+            <td class="final"></td>
+            <td class="status alert undefine"></td>
+            <td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>
+          </tr>
+        <tfoot>
+          <th><input type="button" id="Add" class="btn btn-sm btn-warning" value="افزودن"></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th><span class="total" style="font-size:90%;">مجموع : <br>میانگین : </span></th>
+          <th><input type="button" value="اطلاعات" id="results" class="btn btn-success btn-sm"></th>
+          <th><input type="button" id="removeAll" class="btn btn-sm btn-danger" value="حذف همه"></th>
+        </tfoot>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="popup_background" style="display:none;"></div>
+    <div class="popup_box" style="display:none;">
+      <div>
+        <span class="popup_header">اطلاعات کلی نمرات </span><span class="glyphicon glyphicon-remove exit_icon" id="exit"></span><br>
+        <div id="result_screen" class="popup_body alert alert-success">sfdsdsdsdsdsd</div>
+      </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="js/code-Persian.js"></script>
+  </body>
+</html>

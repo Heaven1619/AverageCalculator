@@ -13,12 +13,12 @@ function Addrow() {
   var number = ($('tbody tr').length)+1;
   var tr = '          <tr>'+
               '<td class="num">'+number+'</td>'+
-              '<td><input type="text" placeholder="Student Name" class="form-control name"></td>'+
-              '<td><input type="number" placeholder="Score" class="form-control score"></td>'+
-              '<td><input type="number" placeholder="Forgiveness" class="form-control forgiveness" value="0"></td>'+
+              '<td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>'+
+              '<td><input type="number" placeholder="نمره" class="form-control score"></td>'+
+              '<td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value="0"></td>'+
               '<td class="final"></td>'+
               '<td class="status alert undefine"></td>'+
-              '<td><input type="button" class="btn btn-info btn-sm remove" value="Remove"></td>'+
+              '<td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>'+
             '</tr>'
   $('tbody').append(tr);
 }
@@ -61,27 +61,27 @@ function total_average() {
     total += num;
     var total_state = $('.total').html();
   }
-  average  = total / $('tbody tr').length;
-  if(!isNaN(total) && total != '' && !isNaN(average) && average != '') $('.total').html('Total : ' + total + '<br>' + 'Average : ' + average );
+  average  = (total / $('tbody tr').length).toFixed('2');
+  if(!isNaN(total) && total != '' && !isNaN(average) && average != '') $('.total').html('مجموع : ' + total + '<br>' + 'میانگین :‌ ' + average );
 }
 
 function status() {
   var status = this_row.parent().parent().find('.status');
   var max = $('#max').val();
-  var min = $('#min').val();
+  min = $('#min').val();
   if(final<=max)
   {
     switch(true)
     {
 
-      case (final>=min) : status.html('passed').removeClass('undefine').addClass('alert-success'); break;
-      case (final<min) : status.html('failed').removeClass('undefine').addClass('alert-danger'); break;
+      case (final>=min) : status.html('قبول').removeClass('undefine').addClass('alert-success'); break;
+      case (final<min) : status.html('تجدید').removeClass('undefine').addClass('alert-danger'); break;
     }
   }
 
   if(final>max)
   {
-    this_row.parent().parent().find('.final').html('more than '+ max +' ?').addClass('alert alert-danger');
+    this_row.parent().parent().find('.final').html('بیشتر از '+ max +' ؟').addClass('alert alert-danger');
   }
 }
 
@@ -89,7 +89,7 @@ function refresh () {
   var status = this_row.parent().parent().find('.status');
   status.removeClass('alert-success').removeClass('alert-danger').html('').addClass('undefine');
   this_row.parent().parent().find('.final').removeClass('alert alert-danger');
-  $('.total').html('Total : ' + '');
+  $('.total').html('مجموع : ' + '');
 }
 
 function results() {
@@ -104,14 +104,14 @@ function results() {
   {
     switch(true)
     {
-      case (passed==0) : results = 'Average of these ' + all_rows +' scores is ' + average+ ' and All ' + failed +' students unfortunately have failed.'; break;
-      case (failed==0) : results = 'Average of these ' + all_rows +' scores is ' + average+ ' and All ' + passed + ' student have passed the exem. hooooora';  break;
-      case (passed!=0 && failed!=0) : results = 'Average of these ' + all_rows +' scores is ' + average + ' and ' + passed + ' students have passed and ' + failed + ' students unfortunately have failed.';break;
+      case (passed==0) : results = 'میانگین نمرات این ' + all_rows + ' دانش آموز' + average + ' میباشد و همه آن ها نتوانسته نبره قبولی  (' + min +')' +' را به دست آورند و متاسفانه تجدید شده اند'; break;
+      case (failed==0) : results = 'میانگین نمرات این ' + all_rows + ' دانش آموز' + average + ' میباشد و همه ی آن ها  نمره قبولی (' + min +')'+ ' را کسب کرده و قبول شده اند';  break;
+      case (passed!=0 && failed!=0) : results = 'میانگین نمرات این ' + all_rows +' دانش آموز' + average + ' میباشد و ' + passed + ' نفر قبول و ' + failed + ' نفر متاسفانه تجدید شده اند.';break;
     }
   }
   if(undefine !=0)
   {
-    results = 'Please enter remaining '+ undefine + ' students info or remove them. thanks!';
+    results = 'لطفا اطلاعات '+ undefine + ' دانش آموز باقی مانده را وارد نمایید یا آن ها را حذف نمایید';
     $('#result_screen').removeClass('alert-success').addClass('alert-danger');
   }
   $('.popup_background,.popup_box').fadeIn(500);
