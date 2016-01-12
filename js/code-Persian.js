@@ -6,7 +6,8 @@ $(document).ready(function(){
   $('body').on('focus','.forgiveness',function(){$(this).val('');});
   $('#results').on('click',results);
   $('.popup_background,#exit').on('click',function(){$('.popup_background,.popup_box').fadeOut(500);});
-  $('#min,#max').on('change keyup',function(){$('.score').change();});
+  $('#min,#max').on('change keyup',Calc);
+  $('body').on('click','#remove_undefine',remove_undefine);
 });
 //add btn that appends new rows to tbody
 function Addrow() {
@@ -93,7 +94,7 @@ function refresh () {
 }
 
 function results() {
-  $('#result_screen').removeClass('alert-danger');//refresh for new value!!
+  $('#result_screen').removeClass('alert-danger').addClass('alert-success');;//refresh for new value!!
   results ='';
   var all_rows = $('tbody tr').length;
   var passed = $('tbody .alert-success').length;
@@ -111,7 +112,8 @@ function results() {
   }
   if(undefine !=0)
   {
-    results = 'لطفا اطلاعات '+ undefine + ' دانش آموز باقی مانده را وارد نمایید یا آن ها را حذف نمایید';
+    results = 'لطفا اطلاعات '+ undefine + ' دانش آموز باقی مانده را وارد نمایید یا آن ها را حذف نمایید' + '<br'+
+    '<input type="button" class="btn btn-success btn-sm" id="remove_undefine" style="float:left; margin-top:5px;">حذف آن ها</input>';
     $('#result_screen').removeClass('alert-success').addClass('alert-danger');
   }
   $('.popup_background,.popup_box').fadeIn(500);
@@ -126,4 +128,10 @@ function refresh_number() {
   {
     $($(trs[i])).find('.num').html(i+1);
   }
+}
+function remove_undefine() {
+  $('tbody .undefine').parent().remove();
+  refresh_number();
+  Calc();
+  $('#results').click();
 }
