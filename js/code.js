@@ -4,17 +4,18 @@ $(document).ready(function(){
   $('#removeAll').on('click',removeAll);
   $('body').on('change keyup','.score,.forgiveness',Calc);
   $('body').on('focus','.forgiveness',function(){$(this).val('');});
+  $('#results').on('click',results);
 });
 //add btn that appends new rows to tbody
 function Addrow() {
   var number = ($('tbody tr').length)+1;
   var tr = '          <tr>'+
-              '<td>'+number+'</td>'+
+              '<td class="num">'+number+'</td>'+
               '<td><input type="text" placeholder="Student Name" class="form-control name"></td>'+
               '<td><input type="number" placeholder="Score" class="form-control score"></td>'+
               '<td><input type="number" placeholder="Forgiveness" class="form-control forgiveness" value="0"></td>'+
               '<td class="final"></td>'+
-              '<td class="status alert"></td>'+
+              '<td class="status alert undefine"></td>'+
               '<td><input type="button" class="btn btn-primary btn-sm remove" value="Remove"></td>'+
             '</tr>'
   $('tbody').append(tr);
@@ -23,6 +24,8 @@ function Addrow() {
 function remove()
 {
   $(this).parent().parent().remove();
+  refresh_number();
+  total_average();
 }
 //remove btn that will remove All rows
 function removeAll()
@@ -38,11 +41,11 @@ function Calc()
       forgiveness = parseInt(this_row.parent().parent().find('.forgiveness').val(),10);
   final = score + forgiveness;
   this_row.parent().parent().find('.final').html(final);
-
+  total_average();
   status();
 }
 
-function total() {
+function total_average() {
   var scoreAll = $('.final');
   var total = 0;
   var num = 0;
@@ -56,19 +59,19 @@ function total() {
     total += num;
     var total_state = $('.total').html();
   }
-  if(!isNaN(total) && total != '') $('.total').html('Total : ' + total );
+  average  = total / $('tbody tr').length;
+  if(!isNaN(total) && total != '' && !isNaN(average) && average != '') $('.total').html('Total : ' + total + '<br>' + 'Average : ' + average );
 }
 
 function status() {
   var status = this_row.parent().parent().find('.status');
   if(final<=20)
   {
-    total();
     switch(true)
     {
 
-      case (final>=10) : status.html('passed').addClass('alert-success'); break;
-      case (final<10) : status.html('failed').addClass('alert-danger'); break;
+      case (final>=10) : status.html('passed').removeClass('undefine').addClass('alert-success'); break;
+      case (final<10) : status.html('failed').removeClass('undefine').addClass('alert-danger'); break;
     }
   }
 
@@ -80,7 +83,37 @@ function status() {
 
 function refresh () {
   var status = this_row.parent().parent().find('.status');
-  status.removeClass('alert-success').removeClass('alert-danger').html('');
+  status.removeClass('alert-success').removeClass('alert-danger').html('').addClass('undefine');
   this_row.parent().parent().find('.final').removeClass('alert alert-danger');
   $('.total').html('Total : ' + '');
+}
+
+function results() {
+  results ='';
+  var all_rows = $('tbody tr').length;
+  var passed = $('tbody .alert-success').length;
+  var failed = $('tbody .alert-danger').length;
+  var undefine = $('tbody .undefine').length;
+  var all = $('tbody tr');
+  if(undefine == 0)
+  {
+    switch(true)
+    {
+      case (passed==0) : results = 'Average of these ' + all_rows +' scores is ' + average+ ' and All ' + failed +' students unfortunately have failed.'; break;
+      case (failed==0) : results = 'Average of these ' + all_rows +' scores is ' + average+ ' and All ' + passed + ' student have passed the exem. hooooora'; break;
+      case (passed!=0 && failed!=0) : results = 'Average of these ' + all_rows +' scores is ' + average + ' and ' + passed + ' students have passed and ' + failed + ' students unfortunately have failed.';break;
+    }
+  }
+  if(undefine !=0) results = 'please enter remaining '+ undefine + ' students info or remove them. thanks!';
+  alert(results);
+
+}
+
+function refresh_number() {
+  var trs = $('tbody tr');
+  var trs_len =  $('tbody tr').length;
+  for(i=0;i<=trs_len;i++)
+  {
+    $($(trs[i])).find('.num').html(i+1);
+  }
 }
