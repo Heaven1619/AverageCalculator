@@ -1,6 +1,6 @@
 $(document).ready(function(){
   $('#Add').on('click',Addrow);
-  $('.remove').on('click',remove);
+  $('tbody').on('click','.remove',remove);
   $('#removeAll').on('click',removeAll);
   $('.score,.forgiveness').on('change',Calc);
 });
