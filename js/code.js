@@ -2,7 +2,7 @@ $(document).ready(function(){
   $('#Add').on('click',Addrow);
   $('tbody').on('click','.remove',remove);
   $('#removeAll').on('click',removeAll);
-  $('.score,.forgiveness').on('change',Calc);
+  $('body').on('change','.score,.forgiveness',Calc);
 });
 //add btn that appends new rows to tbody
 function Addrow() {
