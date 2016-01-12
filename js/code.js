@@ -2,7 +2,7 @@ $(document).ready(function(){
   $('#Add').on('click',Addrow);
   $('tbody').on('click','.remove',remove);
   $('#removeAll').on('click',removeAll);
-  $('body').on('change','.score,.forgiveness',Calc);
+  $('body').on('change keyup','.score,.forgiveness',Calc);
 });
 //add btn that appends new rows to tbody
 function Addrow() {
@@ -12,8 +12,8 @@ function Addrow() {
               '<td><input type="text" placeholder="Student Name" class="form-control name"></td>'+
               '<td><input type="number" placeholder="Score" class="form-control score"></td>'+
               '<td><input type="number" placeholder="Forgiveness" class="form-control forgiveness"></td>'+
-              '<td><span class="final">0</span></td>'+
-              '<td><span class="status"></span></td>'+
+              '<td class="final">0</td>'+
+              '<td class="status"></td>'+
               '<td><input type="button" class="btn btn-primary btn-sm remove" value="Remove"></td>'+
             '</tr>'
   $('tbody').append(tr);
@@ -31,13 +31,31 @@ function removeAll()
 //this func will sum score and forgiveness in each row and then
 function Calc()
 {
-  var score = parseInt($(this).parent().parent().find('.score').val(),10),
-      forgiveness = parseInt($(this).parent().parent().find('.forgiveness').val(),10);
+  this_row = $(this);
+  refresh(); //this func will clear the status to their default state for new value change...
+  var score = parseInt(this_row.parent().parent().find('.score').val(),10),
+      forgiveness = parseInt(this_row.parent().parent().find('.forgiveness').val(),10);
+  if(score && !forgiveness)
+  {
+    final = score;
+  }
+  if(!score && forgiveness)
+  {
+    final = 'Enter Score too!';
+    this_row.parent().parent().find('.final').addClass('alert alert-danger');
+  }
+  if(score && forgiveness)
+  {
+    final = score + forgiveness;
+  }
+  if(!score && !forgiveness)
+  {
+    final = 0;
+  }
 
-  var final = score + forgiveness;
-  $(this).parent().parent().find('.final').html(final);
+  this_row.parent().parent().find('.final').html(final);
 
-  total();
+  status();
 }
 
 function total() {
@@ -55,4 +73,29 @@ function total() {
     $('.total').html('Total : ' + total);
   }
 
+}
+
+function status() {
+  var status = this_row.parent().parent().find('.status');
+  if(final<=20)
+  {
+    total();
+    switch(true)
+    {
+
+      case (final>=10) : status.html('passed').addClass('alert-success'); break;
+      case (final<10) : status.html('failed').addClass('alert-danger'); break;
+    }
+  }
+
+  if(final>20)
+  {
+    alert('more than 20');
+  }
+}
+
+function refresh () {
+  var status = this_row.parent().parent().find('.status');
+  status.removeClass('alert-success').removeClass('alert-danger');
+  this_row.parent().parent().find('.final').removeClass('alert alert-danger');
 }
