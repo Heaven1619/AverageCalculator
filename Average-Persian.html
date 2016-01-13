@@ -8,20 +8,20 @@
     <link rel="stylesheet" href="css/main-Persian.css">
     <link rel="icon" type="image/png" href="img/favicon.png">
   </head>
-  <body style="direction:rtl;">
-    <div class="container">
-      <div class="describtion">
+  <body style="direction:rtl;background-color:#c1cdcd;">
+    <div style="border:5px solid black; padding:30px 80px; margin:10px 10px; border-radius:25px; background-color:white; display:none;" id="container">
+      <div class="describtion" style="display:none;">
         <span style="font-size:200%;font-weight:bold;"> سیستم محاسبه میانگین نمرات</span><br>
         <span style="font-size:120%;">نوشته شده  با jQuery و Bootstrap توسط من</span>
       </div>
-      <div class="setting">
+      <div class="setting" style="display:none;">
         <label for="max">نمره کامل : </label>
         <input type="number" id="max" placeholder="Max" class="form-control" value="20" style="margin-bottom:10px;width:5%;display:inline-block;">
         <label for="min"> نمره قبولی : </label>
         <input type="number" id="min" placeholder="Min" class="form-control" value="10" style="margin-bottom:10px;width:5%;display:inline-block;">
         <span class="alert alert-info" style="float:left;margin-bottom:5px;padding:7px 12px; font-size:95%;"><a href="index.html">Switch to English version</a></span>
       </div>
-      <div class="main">
+      <div class="main" style="display:none;">
       <table class="table table-bordered table-hover">
         <thead>
           <th>ردیف</th>

@@ -6,8 +6,17 @@ $(document).ready(function(){
   $('body').on('focus','.forgiveness',function(){$(this).val('');});
   $('#results').on('click',results);
   $('.popup_background,#exit').on('click',function(){$('.popup_background,.popup_box').fadeOut(500);});
-  $('#min,#max').on('change keyup',Calc);
+  $('body').on('change keyup','#max,#min',function(){$('.score').change();});
   $('body').on('click','#remove_undefine',remove_undefine);
+});
+$(document).ready(function(){ // startup animation
+  $('#container').delay("fast").toggle(1000,function(){
+    $('.describtion').delay("fast").toggle(1000,function(){
+      $('.setting').delay("fast").toggle(1000,function(){
+        $('.main').delay("fast").toggle(1000);
+      });
+    });
+  });
 });
 //add btn that appends new rows to tbody
 function Addrow() {
