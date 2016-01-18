@@ -11,8 +11,8 @@
   <body style="direction:rtl;background-color:#c1cdcd;">
     <div style="border:5px solid black; padding:30px 80px; margin:10px 10px; border-radius:25px; background-color:white; display:none;" id="container">
       <div class="describtion" style="display:none;">
-        <span style="font-size:200%;font-weight:bold;"> سیستم محاسبه میانگین نمرات</span><br>
-        <span style="font-size:120%;">نوشته شده  با jQuery و Bootstrap توسط من</span>
+        <span style="font-size:400%;font-weight:bold;" id="header_name"> سیستم محاسبه میانگین نمرات</span><br>
+        <span style="font-size:240%;" id="header_credit">نوشته شده  با jQuery و Bootstrap توسط من</span>
       </div>
       <div class="setting" style="display:none;">
         <label for="max">نمره کامل : </label>
@@ -20,6 +20,7 @@
         <label for="min"> نمره قبولی : </label>
         <input type="number" id="min" placeholder="Min" class="form-control" value="10" style="margin-bottom:10px;width:5%;display:inline-block;">
         <span class="alert alert-info" style="float:left;margin-bottom:5px;padding:7px 12px; font-size:95%;"><a href="index.html">Switch to English version</a></span>
+        <input type="button" value="حروف الفبا" id="alphabet" class="btn btn-primary btn-sm">
       </div>
       <div class="main" style="display:none;">
       <table class="table table-bordered table-hover">
@@ -30,7 +31,7 @@
           <th>ارفاق</th>
           <th>نمره نهایی</th>
           <th>وضعیت</th>
-          <th></th>
+          <th>حذف</th>
         </thead>
         <tbody>
           <tr>
@@ -38,7 +39,7 @@
             <td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>
             <td><input type="number" placeholder="نمره" class="form-control score"></td>
             <td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value='0'></td>
-            <td class="final"></td>
+            <td class="final">0</td>
             <td class="status alert undefine"></td>
             <td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>
           </tr>
@@ -47,7 +48,7 @@
             <td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>
             <td><input type="number" placeholder="نمره" class="form-control score"></td>
             <td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value='0'></td>
-            <td class="final"></td>
+            <td class="final">0</td>
             <td class="status alert undefine"></td>
             <td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>
           </tr>
@@ -56,7 +57,7 @@
             <td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>
             <td><input type="number" placeholder="نمره" class="form-control score"></td>
             <td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value='0'></td>
-            <td class="final"></td>
+            <td class="final">0</td>
             <td class="status alert undefine"></td>
             <td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>
           </tr>
@@ -65,7 +66,7 @@
             <td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>
             <td><input type="number" placeholder="نمره" class="form-control score"></td>
             <td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value='0'></td>
-            <td class="final"></td>
+            <td class="final">0</td>
             <td class="status alert undefine"></td>
             <td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>
           </tr>
@@ -74,7 +75,7 @@
             <td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>
             <td><input type="number" placeholder="نمره" class="form-control score"></td>
             <td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value='0'></td>
-            <td class="final"></td>
+            <td class="final">0</td>
             <td class="status alert undefine"></td>
             <td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>
           </tr>
@@ -101,5 +102,8 @@
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script type="text/javascript" src="js/code-Persian.js"></script>
+    <script type="text/javascript" src="js/persianumber.js"></script>
+
+    </script>
   </body>
 </html>

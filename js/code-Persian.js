@@ -1,23 +1,4 @@
-$(document).ready(function(){
-  $('#Add').on('click',Addrow);
-  $('tbody').on('click','.remove',remove);
-  $('#removeAll').on('click',removeAll);
-  $('body').on('change keyup','.score,.forgiveness',Calc);
-  $('body').on('focus','.forgiveness',function(){$(this).val('');});
-  $('#results').on('click',results);
-  $('.popup_background,#exit').on('click',function(){$('.popup_background,.popup_box').fadeOut(500);});
-  $('body').on('change keyup','#max,#min',function(){$('.score').change();});
-  $('body').on('click','#remove_undefine',remove_undefine);
-});
-$(document).ready(function(){ // startup animation
-  $('#container').delay("fast").toggle(1000,function(){
-    $('.describtion').delay("fast").toggle(1000,function(){
-      $('.setting').delay("fast").toggle(1000,function(){
-        $('.main').delay("fast").toggle(1000);
-      });
-    });
-  });
-});
+
 //add btn that appends new rows to tbody
 function Addrow() {
   var number = ($('tbody tr').length)+1;
@@ -26,10 +7,10 @@ function Addrow() {
               '<td><input type="text" placeholder="نام دانش آموز" class="form-control name"></td>'+
               '<td><input type="number" placeholder="نمره" class="form-control score"></td>'+
               '<td><input type="number" placeholder="ارفاق" class="form-control forgiveness" value="0"></td>'+
-              '<td class="final"></td>'+
+              '<td class="final">0</td>'+
               '<td class="status alert undefine"></td>'+
               '<td><input type="button" class="btn btn-info btn-sm remove" value="حذف این نفر"></td>'+
-            '</tr>'
+            '</tr>';
   $('tbody').append(tr);
 }
 //remove btn that remove the row which  is in it
@@ -53,8 +34,8 @@ function Calc()
       forgiveness = parseInt(this_row.parent().parent().find('.forgiveness').val(),10);
   final = score + forgiveness;
   this_row.parent().parent().find('.final').html(final);
-  total_average();
-  status();
+
+   status();
 }
 
 function total_average() {
@@ -81,6 +62,7 @@ function status() {
   min = $('#min').val();
   if(final<=max)
   {
+    total_average();
     switch(true)
     {
 
@@ -105,12 +87,17 @@ function refresh () {
 function results() {
   $('#result_screen').removeClass('alert-danger').addClass('alert-success');;//refresh for new value!!
   results ='';
+  $('.popup_header').html('اطلاعات کلی نمرات');
   var all_rows = $('tbody tr').length;
   var passed = $('tbody .alert-success').length;
   var failed = $('tbody .alert-danger').length;
   var undefine = $('tbody .undefine').length;
   var all = $('tbody tr');
-  if(undefine == 0)
+  if(all_rows==0)
+  {
+    results = 'چون اطلاعات هیچ کس را بطور کامل وارد نکرده بودید همگی حذف گردیدند دوباره اقدام به وارد نمودن اطلاعات نمایید';
+  }
+  if(all_rows!=0 && undefine == 0)
   {
     switch(true)
     {
@@ -144,3 +131,55 @@ function remove_undefine() {
   Calc();
   $('#results').click();
 }
+
+function alphabet_order(){
+
+  var name = $('.name');
+  var score = $('.score');
+  var name_vals = [];
+  var score_vals = [];
+  for(i=0 ; i < name.length ; i++)
+  {
+    name_vals.push($(name[i]).val());
+    score_vals.push($(score[i]).val());
+  }
+  name_vals.sort();
+for(i=0; i < name.length ; i++)
+{
+  $(name[i]).val(name_vals[i]);
+  $(score[i]).val(score_vals[i]);
+}
+}
+
+$(document).ready(function(){
+  $('#Add').on('click',Addrow);
+  $('tbody').on('click','.remove',remove);
+  $('#removeAll').on('click',removeAll);
+  $('body').on('change keyup','.score,.forgiveness',Calc);
+  $('body').on('focus','.forgiveness',function(){$(this).val('');});
+  $('#results').on('click',results);
+  $('body').on('click','.popup_background,#exit,#close-start',function(){$('.popup_background,.popup_box').fadeOut(500);});
+  $('body').on('change keyup','#max,#min',function(){var first_row = $('tbody tr'); $(first_row[0]).find('.score').change();});
+  $('body').on('click','#remove_undefine',remove_undefine);
+  $('body').on('click','#alphabet',alphabet_order);
+  //$('#container,.describtion,#header_name,.main,.setting').show();
+
+});
+
+$(document).ready(function(){ // startup animation
+  $('#container').delay("fast").toggle(1000,function(){
+    $('.describtion').delay("fast").toggle(1000,function(){
+      $('#header_name').delay(1500).animate({'font-size':'200%' },500);
+      $('#header_credit').delay(1500).animate({'font-size':'120%' },500,function(){
+        $('.main').delay(500).toggle(1000,function(){
+          $('.setting').delay(100).toggle(1000,function(){
+            $('.popup_background,.popup_box').delay(500).fadeIn(500);
+          });
+          $('.popup_header').html('خوش آمدید');
+          $('#result_screen').html('برای شروع بکار نمرات  را در قسمت مشخص شده وارد نمایید. برای مشاهده  اطلاعت کلی نمرات دکمه ی اطلاعات را بفشارید'+
+          '<br>' + '<input type="button" class="btn btn-primary" id="close-start" value="ورود به برنامه" style="float:left;">' )
+        });
+      });
+    });
+  });
+});
